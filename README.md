@@ -1,4 +1,4 @@
-rss_menu_plugin
+rss menu plugin
 ===============
 
 Qgis python plugin providing rss reader features 
