@@ -16,9 +16,9 @@ changelog=0.2 : QGis 2.2 compatible
 # tags are comma separated with spaces allowed
 tags=rss reader menu
 
-homepage=
-tracker=
-repository=
+homepage=https://github.com/aeag/rss_menu_plugin
+tracker=https://github.com/aeag/rss_menu_plugin/issues
+repository=https://github.com/aeag/rss_menu_plugin
 icon=rss_menu.png
 # experimental flag
 experimental=False
