@@ -1,0 +1,7 @@
+<RCC> 
+  <qresource prefix="/plugins/rss_menu" > 
+    <file>rss_menu.png</file> 
+    <file>rss_menu_2.png</file> 
+    <file>rss_menu.gif</file> 
+  </qresource> 
+</RCC> 
