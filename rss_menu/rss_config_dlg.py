@@ -1,7 +1,7 @@
 ﻿import sys
 
 from types import *
-from ui_rss_config_dlg import Ui_rss_config_dlg
+from .ui_rss_config_dlg import Ui_rss_config_dlg
 
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *

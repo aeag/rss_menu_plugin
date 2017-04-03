@@ -19,5 +19,5 @@ email                : xavier.culos@eau-adour-garonne.fr
 """
 def classFactory(iface): 
   # load aeag_mask class from file aeag_mask
-  from rss_menu import rss_menu 
+  from .rss_menu import rss_menu 
   return rss_menu(iface)

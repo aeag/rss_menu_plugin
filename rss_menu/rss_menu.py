@@ -34,33 +34,34 @@ from PyQt4 import QtGui
 from PyQt4.QtCore import * 
 from PyQt4.QtGui import *
 from qgis.core import *
-import urllib
+import urllib.request, urllib.parse, urllib.error
 from xml.dom.minidom import *
-from feedparser.feedparser import *
-from rss_config_dlg import Rss_config_dlg
+from .feedparser.feedparser import *
+from .rss_config_dlg import Rss_config_dlg
 import webbrowser
 import htmllib
-from htmlentitydefs import name2codepoint as n2cp
+from html.entities import name2codepoint as n2cp
 import re
 import operator
 #import threading
 
 # Initialize Qt resources from file resources.py
-import resources
+from . import resources
+from functools import reduce
 
 def substitute_entity(match):
     ent = match.group(3)
     
     if match.group(1) == "#":
         if match.group(2) == '':
-            return unichr(int(ent))
+            return chr(int(ent))
         elif match.group(2) == 'x':
-            return unichr(int('0x'+ent, 16))
+            return chr(int('0x'+ent, 16))
     else:
         cp = n2cp.get(ent)
 
         if cp:
-            return unichr(cp)
+            return chr(cp)
         else:
             return match.group()
 
@@ -81,7 +82,7 @@ def wrap(text, width):
             
 def decode_htmlentities(string):
     entity_re = re.compile(r'&(#?)(x?)(\w+);')
-    return entity_re.subn(substitute_entity, unicode(string))[0]
+    return entity_re.subn(substitute_entity, str(string))[0]
 
 #def _check(s):
 #    s._check_for_updates()
@@ -119,8 +120,8 @@ class rss_menu:
      
     index = 0
     s.beginWriteArray("rss_menu/visited_feeds")
-    for feeId, entries  in self.visited_feeds.iteritems():
-        for entryId, value in entries.iteritems():
+    for feeId, entries  in self.visited_feeds.items():
+        for entryId, value in entries.items():
             if value:
                 #QMessageBox.information(None, "Cancel", entryId)
                 s.setArrayIndex(index)
@@ -230,7 +231,7 @@ class rss_menu:
   def build_menu(self):
       self.menu.clear()
       
-      for idFeed, feed in self.feeds.iteritems():
+      for idFeed, feed in self.feeds.items():
           if len(self.feeds) > 1:
               sousmenu = self.menu.addMenu(feed["title"])
               if feed["error"] :
@@ -241,7 +242,7 @@ class rss_menu:
 
       
           #sorted(self.feeds[idFeed]["entries"], key=lambda entry: entry[0], reverse=True)
-          items = self.feeds[idFeed]["entries"].items()
+          items = list(self.feeds[idFeed]["entries"].items())
           yaNews = False
               
           for idEntry, entry in sorted(items, key=lambda e: e[0], reverse=True):
@@ -350,11 +351,11 @@ class rss_menu:
       self.build_menu()
 
       # clean visited_feeds dictionary from olders entries   
-      for feeId  in self.visited_feeds.keys():
+      for feeId  in list(self.visited_feeds.keys()):
           if not (feeId in self.feeds):
               del self.visited_feeds[feeId]
           else:
-              for entryId in self.visited_feeds[feeId].keys():
+              for entryId in list(self.visited_feeds[feeId].keys()):
                   if not entryId in self.feeds[feeId]["entries"]:
                       del self.visited_feeds[feeId][entryId]      
 
@@ -384,7 +385,7 @@ class rss_menu:
       QToolTip.showText(QCursor.pos(), tip) 
         
   def mark_as_read(self, feedId):
-    for entryId, entries in self.feeds[feedId]["entries"].iteritems():
+    for entryId, entries in self.feeds[feedId]["entries"].items():
         if not feedId in self.visited_feeds:
             self.visited_feeds[feedId] = {}
             
