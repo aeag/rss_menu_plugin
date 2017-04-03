@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'W:\GitHub\rss_menu_plugin\rss_menu\ui_rss_config_dlg.ui'
+# Form implementation generated from reading ui file
+#   'W:\GitHub\rss_menu_plugin\rss_menu\ui_rss_config_dlg.ui'
 #
 # Created by: PyQt5 UI code generator 5.6
 #

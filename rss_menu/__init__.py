@@ -1,10 +1,11 @@
-﻿"""
+﻿# -*- coding: utf-8 -*-
+"""
 /***************************************************************************
 Name            : rss_menu plugin
 Description          : Rss reader
-Date                 : Feb 2012 
+Date                 : Feb 2012
 copyright            : (C) 2011 by AEAG
-email                : xavier.culos@eau-adour-garonne.fr 
+email                : xavier.culos@eau-adour-garonne.fr
  ***************************************************************************/
 
 /***************************************************************************
@@ -17,7 +18,9 @@ email                : xavier.culos@eau-adour-garonne.fr
  ***************************************************************************/
  This script initializes the plugin, making it known to QGIS.
 """
-def classFactory(iface): 
-  # load aeag_mask class from file aeag_mask
-  from .rss_menu import rss_menu 
-  return rss_menu(iface)
+
+
+def classFactory(iface):
+    # load aeag_mask class from file aeag_mask
+    from .rss_menu import rss_menu
+    return rss_menu(iface)
